@@ -47,6 +47,14 @@ const Header = () => {
           >
             Library
           </Button>
+          <Button
+            size="sm"
+            variant={activePanel === 'qml' ? 'solid' : 'ghost'}
+            colorScheme="green"
+            onClick={() => dispatch(setActivePanel('qml'))}
+          >
+            QML
+          </Button>
         </HStack>
         <Spacer />
         

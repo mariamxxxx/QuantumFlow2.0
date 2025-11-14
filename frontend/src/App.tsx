@@ -17,6 +17,7 @@ import ResizablePanel from './components/layout/ResizablePanel'
 import AIPanel from './components/panels/AIPanel'
 import LibraryPanel from './components/panels/LibraryPanel'
 import ProjectPanel from './components/panels/ProjectPanel'
+import QMLPlayground from './components/QMLPlayground'
 
 function App() {
   const activePanel = useSelector(selectActivePanel)
@@ -91,9 +92,9 @@ function App() {
     <DndProvider backend={HTML5Backend}>
       <VStack spacing={0} align="stretch" h="100vh">
         <Header />
-        <Flex flex={1} overflow="hidden">
+        <Flex flex={1} overflow="auto">
           {/* Fixed sidebar that doesn't scroll (hidden when viewing Library full-page) */}
-          {activePanel !== 'library' && activePanel !== 'projects' && (
+          {activePanel !== 'library' && activePanel !== 'projects' && activePanel !== 'qml' && (
             <Box
               position="sticky"
               top={0}
@@ -108,7 +109,7 @@ function App() {
           {/* Main content area with vertical scrolling */}
           <Box 
             flex={1} 
-            p={activePanel === 'library' || activePanel === 'projects' ? 0 : 4} 
+            p={activePanel === 'library' || activePanel === 'projects' || activePanel === 'qml' ? 0 : 4} 
             overflowY={'auto'} 
             h="calc(100vh - 60px)" // Adjust based on header height
             css={{
@@ -129,10 +130,10 @@ function App() {
             }}
           >
             <Flex direction="column" minH="100%">
-              {activePanel === 'library' || activePanel === 'projects' ? (
+              {activePanel === 'library' || activePanel === 'projects' || activePanel === 'qml' ? (
                 // Library or Projects occupy the full content area (replacing sidebar + canvas)
                 <Box flex={1} w="100%" p={0} h="calc(100vh - 60px)">
-                  {activePanel === 'library' ? <LibraryPanel /> : <ProjectPanel />}
+                  {activePanel === 'library' ? <LibraryPanel /> : activePanel === 'projects' ? <ProjectPanel /> : <QMLPlayground />}
                 </Box>
               ) : (
                 <>
