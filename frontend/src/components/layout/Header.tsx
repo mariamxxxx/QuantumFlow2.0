@@ -240,22 +240,10 @@ const Header = () => {
         </Flex>
       ) : (
         <Flex align="center" justify="space-between" minH="48px">
-          <Flex align="center" flex="1" minW={0} justify="space-between" mr={2}>
+          <Flex align="center" flex="1" minW={0} mr={2}>
             <Heading size={["xs", "sm"]} fontWeight="bold" noOfLines={1}>
               QuantumFlow
             </Heading>
-            <Button
-              size="xs"
-              variant="ghost"
-              fontWeight="bold"
-              color="white"
-              bg={activePanel === 'qkd' ? 'purple.600' : 'transparent'}
-              _hover={{ bg: 'purple.500', color: 'white' }}
-              _active={{ bg: 'purple.600', color: 'white' }}
-              onClick={() => dispatch(setActivePanel('qkd'))}
-            >
-              Colab QKD
-            </Button>
           </Flex>
 
           <HStack spacing={1}>
@@ -334,7 +322,7 @@ const Header = () => {
                   _hover={{ bg: 'whiteAlpha.200' }}
                   onClick={() => dispatch(setActivePanel('qkd'))}
                 >
-                  QKD Colab Experience
+                  🧪 QKD Colab Experience
                 </MenuItem>
                 <MenuItem
                   bg={activePanel === 'export' ? 'whiteAlpha.200' : 'transparent'}

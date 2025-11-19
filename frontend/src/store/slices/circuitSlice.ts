@@ -67,9 +67,13 @@ export const circuitSlice = createSlice({
       // Reindex remaining qubits and update gates accordingly
       const oldToNewIdMap: { [oldId: number]: number } = {}
       state.qubits.forEach((qubit, index) => {
-        oldToNewIdMap[qubit.id] = index
+        const oldId = qubit.id
+        const hadCustomName = qubit.name !== `q${oldId}`
+        oldToNewIdMap[oldId] = index
         qubit.id = index
-        qubit.name = `q${index}`
+        if (!hadCustomName) {
+          qubit.name = `q${index}`
+        }
       })
       
       // Update gate references to use new qubit IDs
@@ -78,10 +82,14 @@ export const circuitSlice = createSlice({
           gate.qubit = oldToNewIdMap[gate.qubit]
         }
         if (gate.targets) {
-          gate.targets = gate.targets.map(target => oldToNewIdMap[target]).filter(id => id !== undefined)
+          gate.targets = gate.targets
+            .map(target => oldToNewIdMap[target])
+            .filter((id): id is number => typeof id === 'number')
         }
         if (gate.controls) {
-          gate.controls = gate.controls.map(control => oldToNewIdMap[control]).filter(id => id !== undefined)
+          gate.controls = gate.controls
+            .map(control => oldToNewIdMap[control])
+            .filter((id): id is number => typeof id === 'number')
         }
       })
     },
