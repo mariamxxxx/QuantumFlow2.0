@@ -28,6 +28,7 @@ const GateItem = ({ gate }: GateItemProps) => {
   const bg = useColorModeValue('white', 'gray.800')
   const borderColor = useColorModeValue('gray.200', 'gray.600')
   const hoverBg = useColorModeValue(`${gate.color}.50`, `${gate.color}.900`)
+  const symbolFontSize = gate.symbol.length > 3 ? '0.55rem' : gate.symbol.length > 2 ? '0.65rem' : 'sm'
   
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'gate',
@@ -63,6 +64,7 @@ const GateItem = ({ gate }: GateItemProps) => {
           alignItems="center"
           justifyContent="center"
           fontWeight="bold"
+          fontSize={symbolFontSize}
           mr={2}
         >
           {gate.symbol}
